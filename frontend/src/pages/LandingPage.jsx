@@ -1,9 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import CrystalBall from '../components/CrystalBall';
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
+  const handleStartTrial = () => {
+    navigate('/dashboard');
+  };
+
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-blue-50 to-purple-50 text-gray-900 px-6 md:px-12 lg:px-24">
       {/* Background Gradients/Glows */}
@@ -42,8 +49,8 @@ const LandingPage = () => {
             transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
           >
             <Button
-              variant="primary"
-              className="px-8 py-4 text-base shadow-lg hover:shadow-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg transition-all duration-300"
+              onClick={handleStartTrial}
+              className="px-8 py-4 text-base shadow-lg hover:shadow-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg transition-all duration-300 cursor-pointer"
             >
               Inizia gratis per 30 giorni
             </Button>
