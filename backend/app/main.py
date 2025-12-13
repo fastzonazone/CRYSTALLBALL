@@ -21,9 +21,9 @@ app.add_middleware(
 
 # Include Routers
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
-app.include_router(upload.router, prefix="/api/upload", tags=["Upload"])
-app.include_router(predict.router, prefix="/api/predict", tags=["Predict"])
-app.include_router(billing.router, prefix="/api/billing", tags=["Billing"])
+# # app.include_router(upload.router, prefix="/api/upload", tags=["Upload"])
+# app.include_router(predict.router, prefix="/api/predict", tags=["Predict"])
+# app.include_router(billing.router, prefix="/api/billing", tags=["Billing"])
 
 
 @app.get("/")
