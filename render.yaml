@@ -3,7 +3,7 @@ services:
     name: crystalball-backend
     env: docker
     dockerfilePath: backend/Dockerfile
-    plan: starter
+    plan: free
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
@@ -16,7 +16,7 @@ services:
     name: crystalball-frontend
     env: docker
     dockerfilePath: frontend/Dockerfile
-    plan: starter
+    plan: free
     healthCheckPath: /
     autoDeploy: true
 
