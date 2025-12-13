@@ -29,3 +29,7 @@ app.include_router(billing.router, prefix="/api/billing", tags=["Billing"])
 @app.get("/")
 async def root():
     return {"message": "CrystalBall API v1.0 is running 🔮"}
+
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}
