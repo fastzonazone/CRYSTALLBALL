@@ -3,127 +3,165 @@
 @tailwind utilities;
 
 :root {
-  /* Dark NASA theme - Keeping as variables for reference, though Tailwind config is source of truth */
-  --bg-deep-space: #0f1419;
-  --bg-sidebar: #1a1f2e;
-  --accent-cyan: #00d9ff;
-  --text-primary: #e0e0e0;
+  /* Light Professional Palette */
+  --bg-light: #ffffff;
+  --bg-subtle: #f8fafb;
+  --bg-accent-blue: #eff6ff;
+  --bg-accent-purple: #faf5ff;
+  --bg-accent-emerald: #f0fdf4;
+  
+  --text-dark: #1f2937;
+  --text-muted: #6b7280;
+  --text-light: #9ca3af;
+  
+  --color-blue: #3b82f6;
+  --color-blue-light: #60a5fa;
+  --color-purple: #a855f7;
+  --color-purple-light: #d8b4fe;
+  --color-emerald: #10b981;
+  --color-cyan: #06b6d4;
+  --color-rose: #f43f5e;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 body {
-  background-color: #0f1419;
-  color: #e0e0e0;
-  font-family: "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 50%, #faf5ff 100%);
+  color: var(--text-dark);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Typography Hierarchy - Size over Weigth */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Typography Hierarchy */
 h1 {
-  font-weight: 300;
+  font-size: 2.5rem;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  color: var(--text-dark);
 }
 
 h2 {
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-dark);
 }
 
 h3 {
-  font-weight: 400;
-  letter-spacing: 0em;
-  line-height: 1.3;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
 }
 
-/* Glassmorphism Utilities */
-@layer components {
-  .glass-card {
-    background-color: rgba(26, 31, 46, 0.4);
-    backdrop-filter: blur(2px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0.75rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  }
-
-  .glass-container {
-    background-color: rgba(37, 45, 61, 0.3);
-    backdrop-filter: blur(1px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .glass-input {
-    background-color: rgba(15, 20, 25, 0.6);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(0, 217, 255, 0.3);
-    border-radius: 0.5rem;
-    color: #e0e0e0;
-    padding: 0.625rem 0.875rem;
-    font-size: 0.875rem;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .glass-input:focus {
-    background-color: rgba(15, 20, 25, 0.8);
-    border-color: #00d9ff;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.15);
-  }
-
-  /* Buttons */
-  .btn-primary {
-    background-color: #00d9ff;
-    color: #0f1419;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.625rem 1.25rem;
-    font-family: inherit;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    box-shadow: none;
-  }
-
-  .btn-primary:hover {
-    background-color: #00a3c0;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 16px rgba(0, 217, 255, 0.2);
-  }
-
-  .btn-primary:active {
-    background-color: #005a6f;
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(0, 217, 255, 0.1);
-  }
-
-  .btn-secondary {
-    background-color: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #e0e0e0;
-    backdrop-filter: blur(4px);
-    border-radius: 0.5rem;
-    padding: 0.625rem 1.25rem;
-    font-family: inherit;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.25);
-  }
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
 }
 
+p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
 
-/* Global transitions */
-* {
-  border-color: rgba(255, 255, 255, 0.1);
+/* Buttons */
+button {
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Cards & Panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-md);
+}
+
+/* Inputs */
+input, textarea, select {
+  background-color: var(--bg-subtle);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  color: var(--text-dark);
+  transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: var(--bg-light);
+}
+
+/* Links */
+a {
+  color: var(--color-blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-purple);
+  text-decoration: underline;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-subtle);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-purple);
+}
+
+/* Utility Classes */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-elevated {
+  box-shadow: var(--shadow-xl);
+}
+
+.rounded-card {
+  border-radius: 1.25rem;
+}
+
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
