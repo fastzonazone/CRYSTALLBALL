@@ -7,9 +7,9 @@ services:
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
-      value: ""
+        value: ""
       - key: JWT_SECRET
-      value: ${JWT_SECRET}
+        value: ${JWT_SECRET}
   - type: web
     name: crystalball-frontend
     env: docker
