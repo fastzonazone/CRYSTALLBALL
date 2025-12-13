@@ -7,10 +7,8 @@ services:
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: crystalball-db
-          property: connectionString
       - key: JWT_SECRET
+      value: ""
         value: ${JWT_SECRET}
   - type: web
     name: crystalball-frontend
@@ -20,7 +18,3 @@ services:
     healthCheckPath: /
     autoDeploy: true
 
-databases:
-  - name: crystalball-db
-    plan: free
-    ipAllowList: []
