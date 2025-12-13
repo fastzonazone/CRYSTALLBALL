@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: crystalball-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: crystalball-db
+          property: connectionString
+      - key: JWT_SECRET
+        value: ${JWT_SECRET}
+  - type: web
+    name: crystalball-frontend
+    env: docker
+    dockerfilePath: frontend/Dockerfile
+    plan: starter
+    healthCheckPath: /
+    autoDeploy: true
+
+databases:
+  - name: crystalball-db
+    postgresVersion: 15
+    plan: starter
+    ipAllowList: []
