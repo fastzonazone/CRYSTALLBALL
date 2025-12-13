@@ -2,8 +2,7 @@ services:
   - type: web
     name: crystalball-backend
     env: docker
-    dockerfilePath: backend/Dockerfile
-    plan: free
+    dockerfilePath: Dockerfile
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
