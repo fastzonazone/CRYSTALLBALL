@@ -22,6 +22,5 @@ services:
 
 databases:
   - name: crystalball-db
-    postgresVersion: 15
-    plan: starter
+    plan: free
     ipAllowList: []
