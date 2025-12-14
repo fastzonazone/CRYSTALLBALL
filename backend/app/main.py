@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from .ml_engine import TimeSeriesForecaster, parse_csv_data, generate_forecast_response
 import pandas as pd
@@ -6,6 +6,7 @@ from io import StringIO
 from .services.stripe_service import StripeService
 import os
 from .middleware import rate_limit_middleware, logging_middleware, error_handler_middleware
+from .auth import create_access_token, verify_token, JWTBearer, create_refresh_token
 
 app = FastAPI(title="CrystalBall API", version="1.0.0")
 
@@ -41,11 +42,39 @@ async def root():
 async def health():
     return {"status": "healthy"}
 
+# ============================================================================
+# JWT AUTHENTICATION ROUTES
+# ============================================================================
+
+@app.post("/login")
+async def login(request_data: dict):
+    """JWT Login endpoint - Returns access and refresh tokens"""
+    try:
+        email = request_data.get('email')
+        password = request_data.get('password')
+        plan = request_data.get('plan', 'free')
+        
+        if not email or not password:
+            return {'error': 'Email and password required', 'status': 'error'}
+        
+        # Create JWT tokens
+        access_token = create_access_token(email, plan)
+        refresh_token = create_refresh_token(email)
+        
+        return {
+            'access_token': access_token,
+            'refresh_token': refresh_token,
+            'user': {'email': email, 'plan': plan},
+            'status': 'success'
+        }
+    except Exception as e:
+        return {'error': str(e), 'status': 'error', 'message': 'Login failed'}
+
 @app.get("/predictions")
 async def get_predictions():
     return []  # Empty array for now
 
-@app.post("/predictions")
+@app.post("/predictions", dependencies=[Depends(JWTBearer())])
 async def forecast_from_csv(request_data: dict):
     """Generate premium ML forecasts from uploaded CSV data"""
     try:
