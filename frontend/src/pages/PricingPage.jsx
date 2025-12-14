@@ -79,7 +79,7 @@ const PricingPage = () => {
     const tiers = [
         {
             title: "Free",
-            price: "€0",
+            price: "$0",
             description: "Best for starting out and testing the waters.",
             ctaText: "Sign up",
             ctaVariant: "secondary",
