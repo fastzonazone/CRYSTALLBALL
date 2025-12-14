@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from .ml_engine import TimeSeriesForecaster, parse_csv_data, generate_forecast_response
 import pandas as pd
 from io import StringIO
+from .services.stripe_service import StripeService
+import os
 
 app = FastAPI(title="CrystalBall API", version="1.0.0")
 
@@ -75,3 +77,37 @@ async def health_detailed():
         return {'error': str(e), 'status': 'error', 'message': 'Forecast generation failed'}
 async def upload_csv(file: dict):
     return {"message": "CSV received", "status": "success"}
+
+# ============================================================================
+# STRIPE PAYMENT INTEGRATION ROUTES
+# ============================================================================
+
+stripe_service = StripeService(os.getenv('STRIPE_SECRET_KEY', ''))
+
+@app.post("/create-checkout")
+async def create_checkout(request_data: dict):
+        """Create a Stripe checkout session for premium subscription"""
+        try:
+                    plan = request_data.get('plan', 'pro')
+                    session = stripe_service.create_checkout_session(plan=plan)
+                    return {'session_id': session.id, 'url': session.url, 'status': 'success'}
+                except Exception as e:
+                            return {'error': str(e), 'status': 'error', 'message': 'Checkout session creation failed'}
+
+@app.post("/stripe/webhook")
+async def stripe_webhook(request_data: dict):
+        """Handle Stripe webhook events"""
+        try:
+                    return {'status': 'success', 'message': 'Webhook received'}
+                except Exception as e:
+                            return {'error': str(e), 'status': 'error', 'message': 'Webhook verification failed'}
+
+@app.post("/subscription/status")
+async def get_subscription_status(request_data: dict):
+        """Get subscription status for a customer"""
+        try:
+                    customer_id = request_data.get('customer_id')
+                    status = stripe_service.get_subscription_status(customer_id)
+                    return {'status': status, 'message': 'Subscription status retrieved'}
+                except Exception as e:
+                            return {'error': str(e), 'status': 'error', 'message': 'Failed to retrieve subscription status'}
