@@ -5,6 +5,7 @@ import pandas as pd
 from io import StringIO
 from .services.stripe_service import StripeService
 import os
+from .middleware import rate_limit_middleware, logging_middleware, error_handler_middleware
 
 app = FastAPI(title="CrystalBall API", version="1.0.0")
 
@@ -26,6 +27,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Phase 4: Add Production Hardening Middleware
+app.add_middleware(error_handler_middleware)
+app.add_middleware(logging_middleware)
+app.add_middleware(rate_limit_middleware)
 
 @app.get("/")
 async def root():
