@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header } from '../components/Header';
 import GlassCard from '../components/GlassCard';
 import Button from '../components/Button';
@@ -13,6 +13,30 @@ const PricingTier = ({
     ctaText = "Choose Plan",
     ctaVariant = "secondary"
 }) => {
+      const [loading, setLoading] = useState(false);
+
+      const handleSubscribe = async () => {
+              setLoading(true);
+              try {
+                        const plan = title.toLowerCase() === 'pro' ? 'pro' : 'enterprise';
+                        const response = await fetch('https://crystalball-backend.onrender.com/create-checkout', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ plan })
+                                              });
+                        const data = await response.json();
+                        if (data.status === 'success' && data.url) {
+                                    window.location.href = data.url;
+                                  } else {
+                                    alert('Error: Could not initiate checkout. Please try again.');
+                                  }
+                      } catch (error) {
+                        console.error('Checkout error:', error);
+                        alert('Error initiating checkout. Please try again later.');
+                      } finally {
+                        setLoading(false);
+                      }
+            };
     return (
         <GlassCard className={`flex flex-col p-8 relative ${isPopular ? 'border-accent-cyan shadow-[0_0_40px_rgba(0,217,255,0.15)] transform scale-105 z-10' : 'border-border-subtle'}`}>
             {isPopular && (
@@ -44,7 +68,7 @@ const PricingTier = ({
                 ))}
             </div>
 
-            <Button variant={ctaVariant} className="w-full justify-center">
+            <Button variant={ctaVariant} className="w-full justify-center onClick={title !== 'Free' ? handleSubscribe : undefined} disabled={loading}>
                 {ctaText}
             </Button>
         </GlassCard>
