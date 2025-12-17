@@ -15,8 +15,7 @@ WORKDIR /app
 
 # Copy only the installed packages from the builder
 COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
-COPY backend /app
-
+COPY backend/ /app/
 # Create a non‑root user
 RUN useradd -m appuser && chown -R appuser:appuser /app
 USER appuser

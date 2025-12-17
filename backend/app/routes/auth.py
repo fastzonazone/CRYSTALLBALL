@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 from app.db import get_db
 from app.models.user import User
 from app.utils.auth_utils import get_password_hash, verify_password, create_access_token
@@ -14,7 +14,7 @@ class UserSignup(BaseModel):
     restaurant_name: str
 
 class UserLogin(BaseModel):
-    email: EmailStr
+    email: str
     password: str
 
 class Token(BaseModel):
