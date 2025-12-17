@@ -9,7 +9,7 @@ from datetime import timedelta
 router = APIRouter()
 
 class UserSignup(BaseModel):
-    email: EmailStr
+    email: str
     password: str
     restaurant_name: str
 

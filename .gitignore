@@ -3,6 +3,8 @@ node_modules/
 __pycache__/
 *.pyc
 .venv/
+backend/venv/
+venv/
 .DS_Store
 dist/
 build/

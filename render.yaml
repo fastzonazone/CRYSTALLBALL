@@ -19,6 +19,12 @@ services:
     plan: starter
     healthCheckPath: /
     autoDeploy: true
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: crystalball-backend
+          property: url
 
 databases:
   - name: crystalball-db

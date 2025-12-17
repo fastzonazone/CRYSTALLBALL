@@ -7,7 +7,10 @@ COPY frontend/package*.json ./
 RUN npm ci
 
 # Copy source and build
+# Copy source and build
 COPY frontend .
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build   # produces ./dist
 
 # ---- Runtime stage (nginx) ----

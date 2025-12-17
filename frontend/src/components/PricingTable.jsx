@@ -6,7 +6,8 @@ export const PricingTable = () => {
 
     const handleSubscribe = async (plan) => {
         try {
-            const res = await axios.post('http://localhost:8000/api/billing/create-checkout-session', { plan });
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+            const res = await axios.post(`${apiUrl}/billing/create-checkout-session`, { plan });
             if (res.data.url) {
                 window.location.href = res.data.url;
             }

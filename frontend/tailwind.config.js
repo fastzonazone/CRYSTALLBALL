@@ -41,7 +41,7 @@ export default {
                 },
             },
             fontFamily: {
-                sans: ['"Helvetica Now Display"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+                sans: ['"Inter"', '"Helvetica Now Display"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
                 mono: ['"JetBrains Mono"', 'monospace'],
             },
             backdropBlur: {
